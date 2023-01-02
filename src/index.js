@@ -1,29 +1,36 @@
 import './css/styles.css';
 import { fetchCountries } from './fetchCountries'
 import Debounce from "lodash.debounce";
+import Notiflix from 'notiflix';
 
-const DEBOUNCE_DELAY = 300;
+const DEBOUNCE_DELAY = 1000;
 
 const input = document.querySelector('#search-box');
 const country = document.querySelector(".country-list");
+// const lid = document.querySelector(".country-item");
 const countryInfo = document.querySelector(".country-info");
-// console.log(countryInfo);
 
 input.addEventListener('input', new Debounce(onClick, DEBOUNCE_DELAY));
 
 function onClick(evt) {
-    console.dir(evt.target.value);
-    fetchCountries(evt.target.value.trim()).then(data => data.map(dat => addList(dat)));
+    // console.dir(evt.target.value);
+    fetchCountries(evt.target.value.trim()).then(data => addList(data)).catch(() => Notiflix.Notify.failure('Oops, there is no country with that name'));
 }
 
 function addList(arr) {
-    console.log(arr);
-    // const li = arr.map(ar => ar.name);
-    // console.log(li);
-    country.insertAdjacentHTML('beforeend', `<li class="country-item">${arr.name}</li>`)
+    // console.log(arr);
+
+    if (arr.length > 10) {
+        Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+    } else if (arr.length > 1) {
+        const li = arr.map(({ flag, name }) => `<li class="country-item"><img src="${flag}" alt="" class="country-img" width="25px">${name}</li>`).join('');
+        country.insertAdjacentHTML('beforeend', li);
+    } else {
+        const div = arr.map(({ capital, population, languages, flag, name }) =>
+            `<li class="country-item"><img src="${flag}" alt="" class="country-img" width="25px">${name}</li>
+        <div class="country-item">Capital: ${capital}</div>
+        <div class="country-item">Population: ${population}</div>
+        <div class="country-item">Languages: ${languages.map(lan => lan.name)}</div>`).join('');
+        countryInfo.insertAdjacentHTML('beforeend', div)
+    }
 }
-
-
-// console.log(rt.then(data => data.json()).then(res => console.log(res[0])));
-
-// fetchCountries("And").then(data => data.map(dat => console.log(dat)));
