@@ -23,11 +23,11 @@ function addList(arr) {
     if (arr.length > 10) {
         Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
     } else if (arr.length > 1) {
-        const li = arr.map(({ flag, name }) => `<li class="country-item"><img src="${flag}" alt="" class="country-img" width="25px">${name}</li>`).join('');
+        const li = arr.map(({ flags, name }) => `<li class="country-item"><img src="${flags.svg}" alt="" class="country-img" width="25px">${name}</li>`).join('');
         country.insertAdjacentHTML('beforeend', li);
     } else {
-        const div = arr.map(({ capital, population, languages, flag, name }) =>
-            `<li class="country-item"><img src="${flag}" alt="" class="country-img" width="25px">${name}</li>
+        const div = arr.map(({ capital, population, languages, flags, name }) =>
+            `<li class="country-item"><img src="${flags.svg}" alt="" class="country-img" width="25px">${name}</li>
         <div class="country-item">Capital: ${capital}</div>
         <div class="country-item">Population: ${population}</div>
         <div class="country-item">Languages: ${languages.map(lan => lan.name)}</div>`).join('');
