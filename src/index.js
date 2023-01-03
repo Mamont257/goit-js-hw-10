@@ -13,8 +13,25 @@ const countryInfo = document.querySelector(".country-info");
 input.addEventListener('input', new Debounce(onClick, DEBOUNCE_DELAY));
 
 function onClick(evt) {
-    // console.dir(evt.target.value);
     fetchCountries(evt.target.value.trim()).then(data => addList(data)).catch(() => Notiflix.Notify.failure('Oops, there is no country with that name'));
+    const lid = document.querySelector(".country-item");
+
+
+
+
+    //Використав таку конструкцію, технічно працює, але так погано
+
+    if (lid) {
+        for (let i = 0; i <= 10; i++){
+            const lid = document.querySelector(".country-item");
+            lid.remove();
+        }
+    }
+
+
+
+
+
 }
 
 function addList(arr) {
