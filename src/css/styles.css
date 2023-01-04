@@ -16,7 +16,7 @@ body {
   font: inherit;
   padding: 8px;
   max-width: 320px;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 }
 
 .country-list{
@@ -33,4 +33,16 @@ body {
 .country-img{
   width: 25px;
   margin-right: 10px;
+}
+
+.country-item_text{
+  font-weight: 500;
+  font-size: 23px;
+  margin-right: 10px;
+}
+
+.info{
+  font-weight: 700;
+  font-size: 25px;
+  margin-bottom: 8px;
 }
